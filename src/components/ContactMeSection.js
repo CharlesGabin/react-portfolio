@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import {
   Box,
@@ -39,7 +39,6 @@ const LandingSection = () => {
         .required("Required"),
     }),
     onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
       submit("url", values);
       console.log(isLoading);
       console.log(response);
@@ -100,7 +99,11 @@ const LandingSection = () => {
                     : null}
                 </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl
+                isInvalid={
+                  formik.touched.type && formik.errors.type ? true : false
+                }
+              >
                 <FormLabel htmlFor="type">Type of enquiry</FormLabel>
                 <Select id="type" {...formik.getFieldProps("type")}>
                   <option value="hireMe">Freelance project proposal</option>
@@ -109,9 +112,11 @@ const LandingSection = () => {
                   </option>
                   <option value="other">Other</option>
                 </Select>
-                {formik.touched.type && formik.errors.type ? (
-                  <div className="text-red-500">{formik.errors.type}</div>
-                ) : null}
+                <FormErrorMessage>
+                  {formik.touched.type && formik.errors.type
+                    ? formik.errors.type
+                    : null}
+                </FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={
