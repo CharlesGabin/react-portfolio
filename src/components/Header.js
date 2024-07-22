@@ -5,6 +5,7 @@ import {
   faGithub,
   faLinkedin,
   faMedium,
+  faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
 import { Box, HStack } from "@chakra-ui/react";
 
@@ -25,10 +26,10 @@ const socials = [
     icon: faMedium,
     url: "https://medium.com/@charlesgabinnemecksongna_19708",
   },
-  // {
-  //   icon: faStackOverflow,
-  //   url: "https://stackoverflow.com",
-  // },
+  {
+    icon: faStackOverflow,
+    url: "https://stackoverflow.com",
+  },
 ];
 
 const Header = () => {

@@ -12,14 +12,12 @@ function App() {
   return (
     <ChakraProvider>
       <AlertProvider>
-        <main>
-          <Header />
-          <LandingSection />
-          <ProjectsSection />
-          <ContactMeSection />
-          <Footer />
-          <Alert />
-        </main>
+        <Header />
+        <LandingSection />
+        <ProjectsSection />
+        <ContactMeSection />
+        <Footer />
+        <Alert />
       </AlertProvider>
     </ChakraProvider>
   );

@@ -15,11 +15,9 @@ import {
 import * as Yup from "yup";
 import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
-import { useAlertContext } from "../context/alertContext";
 
 const LandingSection = () => {
   const { isLoading, response, submit } = useSubmit();
-  const { onOpen } = useAlertContext();
 
   const formik = useFormik({
     initialValues: {
@@ -35,14 +33,13 @@ const LandingSection = () => {
       email: Yup.string().email("Invalid email address").required("Required"),
       type: Yup.string().required("Required"),
       comment: Yup.string()
-        .max(250, "Must be 250 characters or less")
+        .min(25, "Must be 25 characters or more")
         .required("Required"),
     }),
     onSubmit: (values) => {
       submit("url", values);
-      console.log(isLoading);
-      console.log(response);
-      onOpen(response.type, response.message);
+
+      formik.resetForm();
     },
   });
 
@@ -59,12 +56,7 @@ const LandingSection = () => {
           Contact me
         </Heading>
         <Box p={6} rounded="md" w="100%">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              formik.handleSubmit;
-            }}
-          >
+          <form onSubmit={formik.handleSubmit}>
             <VStack spacing={4}>
               <FormControl
                 isInvalid={
@@ -76,11 +68,7 @@ const LandingSection = () => {
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input id="firstName" {...formik.getFieldProps("firstName")} />
 
-                <FormErrorMessage>
-                  {formik.touched.firstName && formik.errors.firstName
-                    ? formik.errors.firstName
-                    : null}
-                </FormErrorMessage>
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={
@@ -93,11 +81,7 @@ const LandingSection = () => {
                   type="email"
                   {...formik.getFieldProps("email")}
                 />
-                <FormErrorMessage>
-                  {formik.touched.email && formik.errors.email
-                    ? formik.errors.email
-                    : null}
-                </FormErrorMessage>
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={
@@ -112,11 +96,7 @@ const LandingSection = () => {
                   </option>
                   <option value="other">Other</option>
                 </Select>
-                <FormErrorMessage>
-                  {formik.touched.type && formik.errors.type
-                    ? formik.errors.type
-                    : null}
-                </FormErrorMessage>
+                <FormErrorMessage>{formik.errors.type}</FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={
@@ -129,14 +109,15 @@ const LandingSection = () => {
                   height={250}
                   {...formik.getFieldProps("comment")}
                 />
-                <FormErrorMessage>
-                  {formik.touched.comment && formik.errors.comment
-                    ? formik.errors.comment
-                    : null}
-                </FormErrorMessage>
+                <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
 
-              <Button type="submit" colorScheme="purple" width="full">
+              <Button
+                type="submit"
+                colorScheme="purple"
+                width="full"
+                isLoading={isLoading}
+              >
                 Submit
               </Button>
             </VStack>
