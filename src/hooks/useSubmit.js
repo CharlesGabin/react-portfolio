@@ -11,8 +11,6 @@ const useSubmit = () => {
   const [isLoading, setLoading] = useState(false);
   const [response, setResponse] = useState({ type: "", message: "" });
 
-  const { onOpen } = useAlertContext();
-
   const submit = async (url, data) => {
     const random = Math.random();
     console.log(random);
@@ -29,14 +27,11 @@ const useSubmit = () => {
     } catch (error) {
       setResponse({
         type: "error",
-        message: `Something went wrong ${data.firstName}, please try again later!`,
+        message: `Something went wrong, please try again later!`,
       });
     } finally {
       setLoading(false);
     }
-    onOpen(response.type, response.message);
-    console.log(random);
-    console.log(response.type, response.message);
   };
 
   return { isLoading, response, submit };

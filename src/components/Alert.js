@@ -6,7 +6,7 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { useAlertContext } from "../context/alertContext";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 /**
  * This is a global component that uses context to display a global alert message.
@@ -14,7 +14,7 @@ import { useRef } from "react";
 function Alert() {
   const { isOpen, type, message, onClose } = useAlertContext();
   const cancelRef = useRef();
-  const isSuccess = type === "success"
+  const isSuccess = type === "success";
 
   return (
     <AlertDialog
@@ -23,9 +23,12 @@ function Alert() {
       onClose={onClose}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent py={4} backgroundColor={isSuccess ? '#81C784' : '#FF8A65'}>
+        <AlertDialogContent
+          py={4}
+          backgroundColor={isSuccess ? "#81C784" : "#FF8A65"}
+        >
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {isSuccess ? 'All good!' : 'Oops!'}
+            {isSuccess ? "All good!" : "Oops!"}
           </AlertDialogHeader>
           <AlertDialogBody>{message}</AlertDialogBody>
         </AlertDialogContent>
